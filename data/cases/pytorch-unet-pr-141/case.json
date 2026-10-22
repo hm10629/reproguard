@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "case_id": "pytorch-unet-pr-141",
+  "title": "Pytorch-UNet evaluation pipeline change",
+  "repository": {
+    "name": "milesial/Pytorch-UNet",
+    "url": "https://github.com/milesial/Pytorch-UNet",
+    "license": "GPL-3.0"
+  },
+  "paper": {
+    "title": "U-Net: Convolutional Networks for Biomedical Image Segmentation",
+    "url": "https://arxiv.org/abs/1505.04597"
+  },
+  "pull_request": {
+    "number": 141,
+    "url": "https://github.com/milesial/Pytorch-UNet/pull/141",
+    "title": "Apply sigmoid before calc dice in eval_net()",
+    "merged_at": "2020-03-14T22:02:51Z",
+    "merge_commit_sha": "32ee0fe21170e98f3edb51f8639d8b26d7ce3475",
+    "diff_url": "https://github.com/milesial/Pytorch-UNet/pull/141.diff",
+    "diff_sha256": "4dfe9e0a4f6da928f70ba4b7ca31b923279813486dcc9ef26ee790b5156b4e8b"
+  },
+  "expected_review": {
+    "changed_files": [
+      "eval.py",
+      "train.py"
+    ],
+    "expected_categories": [
+      "pipeline_change"
+    ],
+    "human_review_required": true
+  }
+}

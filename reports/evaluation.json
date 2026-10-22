@@ -1,0 +1,83 @@
+{
+  "root": "data\\evaluation",
+  "project_count": 1,
+  "projects": [
+    {
+      "project_id": "unet-pytorch",
+      "project_dir": "data\\evaluation\\unet-pytorch",
+      "paper_path": "data\\evaluation\\unet-pytorch\\paper.pdf",
+      "repository_path": "data\\evaluation\\unet-pytorch\\repository",
+      "comparisons": [
+        {
+          "rule_id": "R001",
+          "expected": "partial",
+          "actual": "partial",
+          "match": true
+        },
+        {
+          "rule_id": "R002",
+          "expected": "missing",
+          "actual": "missing",
+          "match": true
+        },
+        {
+          "rule_id": "R003",
+          "expected": "partial",
+          "actual": "partial",
+          "match": true
+        },
+        {
+          "rule_id": "R008",
+          "expected": "missing",
+          "actual": "missing",
+          "match": true
+        },
+        {
+          "rule_id": "R011",
+          "expected": "needs_review",
+          "actual": "needs_review",
+          "match": true
+        },
+        {
+          "rule_id": "R014",
+          "expected": "partial",
+          "actual": "partial",
+          "match": true
+        }
+      ],
+      "unannotated": [
+        "R004",
+        "R005",
+        "R006",
+        "R007",
+        "R009",
+        "R010",
+        "R012",
+        "R013",
+        "R015"
+      ],
+      "metrics": {
+        "compared": 6.0,
+        "matched": 6.0,
+        "agreement": 1.0,
+        "gap_true_positive": 6.0,
+        "gap_false_positive": 0.0,
+        "gap_false_negative": 0.0,
+        "gap_true_negative": 0.0,
+        "gap_precision": 1.0,
+        "gap_recall": 1.0
+      }
+    }
+  ],
+  "metrics": {
+    "compared": 6.0,
+    "matched": 6.0,
+    "agreement": 1.0,
+    "gap_true_positive": 6.0,
+    "gap_false_positive": 0.0,
+    "gap_false_negative": 0.0,
+    "gap_true_negative": 0.0,
+    "gap_precision": 1.0,
+    "gap_recall": 1.0
+  }
+}

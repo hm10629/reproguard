@@ -1,0 +1,56 @@
+{
+  "template_note": "这是待标注模板，不是可运行标注文件。文件名故意不用 expected-findings.json，以免被 src/evaluation.py 误认为已完成标注。expectations 中的 TODO 不是合法状态值，无法通过 data/evaluation/schema.json 校验；完成人工标注后，需把每条 TODO 替换为 found/partial/missing/not_applicable/needs_review 之一，并把本文件改名为 expected-findings.json。",
+  "sample_id": "darknet-yolov3",
+  "purpose": "候选项目待标注模板：YOLOv3 论文对应的 pjreddie/darknet 仓库。状态未标注，尚未纳入真实评测。",
+  "source": {
+    "paper_title": "YOLOv3: An Incremental Improvement",
+    "paper_url": "https://arxiv.org/abs/1804.02767",
+    "repository_url": "https://github.com/pjreddie/darknet",
+    "repository_commit": "未固定，待人工选择",
+    "paper_license": "arXiv 页面未声明可再分发许可，本轮未下载论文",
+    "repository_license": "needs_verification",
+    "repository_license_verified": false,
+    "repository_license_evidence": "主 LICENSE（515 字节）标题为 YOLO LICENSE Version 2，正文写 Darknet is public domain；但 GitHub REST API 返回 license.spdx_id = NOASSERTION、license.name = Other，且仓库顶层存在 7 个互相冲突的 license 文件（LICENSE、LICENSE.fuck、LICENSE.gen、LICENSE.gpl、LICENSE.meta、LICENSE.mit、LICENSE.v1）",
+    "note": "不得把该仓库许可证简写为 MIT 或 GPL，也不宜直接断言已是 public domain，使用前需人工确认。"
+  },
+  "annotation": {
+    "status": "unlabeled",
+    "annotated_by": "",
+    "annotated_at": "",
+    "notes": "尚未人工标注。标注前需先固定 commit、确认许可证、确认论文与仓库的对应关系。"
+  },
+  "expectations": {
+    "R001": "TODO",
+    "R002": "TODO",
+    "R003": "TODO",
+    "R004": "TODO",
+    "R005": "TODO",
+    "R006": "TODO",
+    "R007": "TODO",
+    "R008": "TODO",
+    "R009": "TODO",
+    "R010": "TODO",
+    "R011": "TODO",
+    "R012": "TODO",
+    "R013": "TODO",
+    "R014": "TODO",
+    "R015": "TODO"
+  },
+  "rule_reference": {
+    "R001": "是否存在项目说明文档",
+    "R002": "是否声明依赖及版本",
+    "R003": "是否说明数据集来源和下载方式",
+    "R004": "是否说明数据预处理和数据划分",
+    "R005": "是否设置或说明随机种子",
+    "R006": "是否说明关键训练超参数",
+    "R007": "是否说明硬件和运行环境",
+    "R008": "是否存在明确的实验入口命令",
+    "R009": "是否能定位评价指标的计算方式",
+    "R010": "是否提供结果生成或评测输出",
+    "R011": "论文中的模型、数据集和代码名称是否对应",
+    "R012": "是否说明预训练模型或外部权重来源",
+    "R013": "是否记录关键版本或提交号",
+    "R014": "是否提供许可证和数据使用限制",
+    "R015": "是否有失败处理或常见问题说明"
+  }
+}

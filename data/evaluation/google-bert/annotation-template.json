@@ -1,0 +1,64 @@
+{
+  "template_note": "这是待标注模板，不是可运行标注文件。文件名故意不用 expected-findings.json，以免被 src/evaluation.py 误认为已完成标注。expectations 中的 TODO 不是合法状态值，无法通过 data/evaluation/schema.json 校验；完成人工标注后，需把每条 TODO 替换为 found/partial/missing/not_applicable/needs_review 之一，并把本文件改名为 expected-findings.json。",
+  "sample_id": "google-bert",
+  "purpose": "候选项目待标注模板：BERT 论文对应的 google-research/bert 仓库。标注范围限定为微调阶段（fine-tuning），不评测预训练阶段。状态未标注，尚未纳入真实评测。",
+  "scope": {
+    "stage": "fine-tuning",
+    "label_zh": "只标注微调阶段（fine-tuning），不标注预训练阶段",
+    "excluded_stages": ["pre-training"],
+    "decided_by": "人工确认",
+    "decided_at": "2026-10-05",
+    "note": "BERT 完整复现含预训练与微调两阶段，预训练需 TPU 集群级算力，个人环境不可复现。R001-R015 的判定只依据微调相关材料；仅与预训练相关的规则按 not_applicable 处理，并在 note 中说明，不计入 found。"
+  },
+  "source": {
+    "paper_title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "paper_url": "https://arxiv.org/abs/1810.04805",
+    "repository_url": "https://github.com/google-research/bert",
+    "repository_commit": "eedf5716ce1268e56f0a50264a88cafad334ac61（由人确认于 2026-10-05）",
+    "paper_license": "arXiv 页面未声明可再分发许可，本轮未下载论文",
+    "repository_license": "Apache-2.0",
+    "repository_license_verified": true,
+    "repository_license_evidence": "GitHub REST API GET /repos/google-research/bert 返回 license.spdx_id = Apache-2.0；README 原文 All code *and* models are released under the Apache 2.0 license.",
+    "note": "该仓库已归档（GitHub REST API archived = true），只能作为历史论文复现项目引用，不得描述为活跃维护中。标注范围限定为微调阶段。"
+  },
+  "annotation": {
+    "status": "unlabeled",
+    "annotated_by": "",
+    "annotated_at": "",
+    "notes": "尚未人工标注。标注范围限定为微调阶段（fine-tuning）；commit 已固定为 eedf5716ce1268e56f0a50264a88cafad334ac61。预训练相关规则若被触及，按 not_applicable 处理并说明。"
+  },
+  "expectations": {
+    "R001": "TODO",
+    "R002": "TODO",
+    "R003": "TODO",
+    "R004": "TODO",
+    "R005": "TODO",
+    "R006": "TODO",
+    "R007": "TODO",
+    "R008": "TODO",
+    "R009": "TODO",
+    "R010": "TODO",
+    "R011": "TODO",
+    "R012": "TODO",
+    "R013": "TODO",
+    "R014": "TODO",
+    "R015": "TODO"
+  },
+  "rule_reference": {
+    "R001": "是否存在项目说明文档",
+    "R002": "是否声明依赖及版本",
+    "R003": "是否说明数据集来源和下载方式",
+    "R004": "是否说明数据预处理和数据划分",
+    "R005": "是否设置或说明随机种子",
+    "R006": "是否说明关键训练超参数",
+    "R007": "是否说明硬件和运行环境",
+    "R008": "是否存在明确的实验入口命令",
+    "R009": "是否能定位评价指标的计算方式",
+    "R010": "是否提供结果生成或评测输出",
+    "R011": "论文中的模型、数据集和代码名称是否对应",
+    "R012": "是否说明预训练模型或外部权重来源",
+    "R013": "是否记录关键版本或提交号",
+    "R014": "是否提供许可证和数据使用限制",
+    "R015": "是否有失败处理或常见问题说明"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "sample_id": "unet-pytorch",
+  "purpose": "U-Net 第三方 PyTorch 实现的六条核心人工标注，用于真实项目规则评测",
+  "source": {
+    "paper_url": "https://arxiv.org/abs/1505.04597",
+    "paper_license": "arXiv 页面未声明可再分发许可，论文 PDF 仅在本机用于评测",
+    "repository_url": "https://github.com/jaxony/unet-pytorch",
+    "repository_commit": "2bb0e44a2d5c7c04b589d5d942673aee52bcff58",
+    "repository_license": "MIT"
+  },
+  "annotation": {
+    "status": "complete_core_six",
+    "annotated_by": "沈智和",
+    "annotated_at": "2026-10-20",
+    "notes": "先阅读固定 commit 的论文和仓库原文后独立完成；本轮只评测已人工复核的六条规则。"
+  },
+  "expectations": [
+    {
+      "rule_id": "R001",
+      "expected": "partial",
+      "note": "README.md:3、7–35：说明项目用途并给出 loss 示例，但缺少安装、训练和评测步骤。"
+    },
+    {
+      "rule_id": "R002",
+      "expected": "missing",
+      "note": "根目录无依赖文件；README 未声明依赖；model.py:1–7 未给关键版本。"
+    },
+    {
+      "rule_id": "R003",
+      "expected": "partial",
+      "note": "论文 §4 给出 ISBI 2012 EM challenge 的来源与规模，但论文和 README 均无直接下载及数据准备方式。"
+    },
+    {
+      "rule_id": "R008",
+      "expected": "missing",
+      "note": "无训练或评测入口；model.py:238–246 仅为 smoke test。"
+    },
+    {
+      "rule_id": "R011",
+      "expected": "needs_review",
+      "note": "第三方 PyTorch 修改版虽保留 U-Net 主体结构，但缺少原论文若干实验设置，等价复现边界需确认。"
+    },
+    {
+      "rule_id": "R014",
+      "expected": "partial",
+      "note": "代码有 MIT 许可证，但未说明外部数据集的许可、申请或再分发限制。"
+    }
+  ]
+}

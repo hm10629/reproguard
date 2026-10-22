@@ -1,0 +1,21 @@
+{
+  "sample_id": "incomplete-ml-project",
+  "purpose": "验证检查器能区分 found、partial 和 missing",
+  "expectations": {
+    "R001": "found",
+    "R002": "partial",
+    "R003": "partial",
+    "R004": "missing",
+    "R005": "found",
+    "R006": "partial",
+    "R007": "missing",
+    "R008": "found",
+    "R009": "partial",
+    "R010": "found",
+    "R011": "found",
+    "R012": "missing",
+    "R013": "missing",
+    "R014": "missing",
+    "R015": "missing"
+  }
+}

@@ -1,0 +1,87 @@
+name: ReproGuard PR Review
+description: Review pull requests for research reproducibility risks with traceable evidence.
+author: ReproGuard contributors
+
+branding:
+  icon: check-circle
+  color: green
+
+inputs:
+  constraints:
+    description: Optional paper or protocol path relative to the checked-out repository.
+    required: false
+    default: ""
+  output:
+    description: Report path prefix relative to the checked-out repository.
+    required: false
+    default: reproguard-report
+  fail-on:
+    description: Failure threshold; one of never, high, or any.
+    required: false
+    default: never
+  post-comment:
+    description: Create or update one ReproGuard pull-request comment.
+    required: false
+    default: "true"
+  model-mode:
+    description: Analysis mode; one of rules, ollama, or deepseek.
+    required: false
+    default: rules
+  model-name:
+    description: Optional model name override.
+    required: false
+    default: ""
+  ollama-url:
+    description: Ollama API base URL.
+    required: false
+    default: http://127.0.0.1:11434
+  api-base-url:
+    description: OpenAI-compatible API base URL used by deepseek mode.
+    required: false
+    default: https://api.deepseek.com/v1
+  diff-path:
+    description: Optional local unified diff path for replay; a pull-request event is used by default.
+    required: false
+    default: ""
+
+outputs:
+  finding-count:
+    description: Total number of deterministic findings.
+    value: ${{ steps.review.outputs.finding-count }}
+  high-count:
+    description: Number of high-risk findings.
+    value: ${{ steps.review.outputs.high-count }}
+  report-json:
+    description: Generated JSON report path.
+    value: ${{ steps.review.outputs.report-json }}
+  report-markdown:
+    description: Generated Markdown report path.
+    value: ${{ steps.review.outputs.report-markdown }}
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install ReproGuard dependencies
+      shell: bash
+      run: python -m pip install --disable-pip-version-check -r "$GITHUB_ACTION_PATH/requirements.txt"
+
+    - name: Review pull request
+      id: review
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        REPROGUARD_CONSTRAINTS: ${{ inputs.constraints }}
+        REPROGUARD_OUTPUT: ${{ inputs.output }}
+        REPROGUARD_FAIL_ON: ${{ inputs.fail-on }}
+        REPROGUARD_POST_COMMENT: ${{ inputs.post-comment }}
+        REPROGUARD_MODEL_MODE: ${{ inputs.model-mode }}
+        REPROGUARD_MODEL_NAME: ${{ inputs.model-name }}
+        REPROGUARD_OLLAMA_URL: ${{ inputs.ollama-url }}
+        REPROGUARD_API_BASE_URL: ${{ inputs.api-base-url }}
+        REPROGUARD_DIFF_PATH: ${{ inputs.diff-path }}
+      run: python "$GITHUB_ACTION_PATH/scripts/github_action.py"

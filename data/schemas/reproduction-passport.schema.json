@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-repro.example/schema/reproduction-passport-0.1.0.json",
+  "title": "开放科研复现档案",
+  "type": "object",
+  "required": ["schema_version", "pack_id", "title", "study"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "pack_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "created_at": {"type": "string"},
+    "updated_at": {"type": "string"},
+    "license": {"type": "string"},
+    "study": {
+      "type": "object",
+      "required": ["study_id", "title", "source_citation"],
+      "properties": {
+        "study_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "source_citation": {"type": "string", "minLength": 1},
+        "discipline": {"type": "string"},
+        "source_url": {"type": "string"},
+        "summary": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidence"}
+    },
+    "claims": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/claim"}
+    },
+    "protocol_steps": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/protocolStep"}
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/artifact"}
+    },
+    "runs": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/run"}
+    },
+    "results": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/result"}
+    },
+    "deviations": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/deviation"}
+    },
+    "reviews": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/review"}
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "evidenceStatus": {
+      "enum": ["confirmed", "partial", "missing", "deviation", "needs_review", "not_applicable"]
+    },
+    "verificationLevel": {
+      "enum": ["machine_extracted", "user_supplied", "machine_verified", "human_confirmed"]
+    },
+    "evidenceIds": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["evidence_id", "source_type", "source_location", "content", "verification_level"],
+      "properties": {
+        "evidence_id": {"type": "string", "minLength": 1},
+        "source_type": {"type": "string", "minLength": 1},
+        "source_location": {"type": "string", "minLength": 1},
+        "content": {"type": "string", "minLength": 1},
+        "verification_level": {"$ref": "#/$defs/verificationLevel"},
+        "status": {"$ref": "#/$defs/evidenceStatus"},
+        "source_uri": {"type": "string"},
+        "created_at": {"type": "string"},
+        "updated_at": {"type": "string"},
+        "metadata": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "claim": {
+      "type": "object",
+      "required": ["claim_id", "text"],
+      "properties": {
+        "claim_id": {"type": "string", "minLength": 1},
+        "text": {"type": "string", "minLength": 1},
+        "evidence_ids": {"$ref": "#/$defs/evidenceIds"},
+        "status": {"$ref": "#/$defs/evidenceStatus"}
+      },
+      "additionalProperties": false
+    },
+    "protocolStep": {
+      "type": "object",
+      "required": ["step_id", "title"],
+      "properties": {
+        "step_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "description": {"type": "string"},
+        "sequence": {"type": "integer", "minimum": 0},
+        "expected_parameters": {"type": "object"},
+        "evidence_ids": {"$ref": "#/$defs/evidenceIds"}
+      },
+      "additionalProperties": false
+    },
+    "artifact": {
+      "type": "object",
+      "required": ["artifact_id", "artifact_type", "name"],
+      "properties": {
+        "artifact_id": {"type": "string", "minLength": 1},
+        "artifact_type": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "location": {"type": "string"},
+        "version": {"type": "string"},
+        "license": {"type": "string"},
+        "evidence_ids": {"$ref": "#/$defs/evidenceIds"}
+      },
+      "additionalProperties": false
+    },
+    "runStep": {
+      "type": "object",
+      "required": ["step_id", "status"],
+      "properties": {
+        "step_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["not_started", "in_progress", "completed", "failed", "skipped"]},
+        "notes": {"type": "string"},
+        "actual_parameters": {"type": "object"},
+        "evidence_ids": {"$ref": "#/$defs/evidenceIds"}
+      },
+      "additionalProperties": false
+    },
+    "run": {
+      "type": "object",
+      "required": ["run_id", "title", "status"],
+      "properties": {
+        "run_id": {"type": "string", "minLength": 1},
+        "title": {"type": "string", "minLength": 1},
+        "status": {"enum": ["planned", "in_progress", "completed", "failed", "stopped"]},
+        "steps": {"type": "array", "items": {"$ref": "#/$defs/runStep"}},
+        "started_at": {"type": "string"},
+        "ended_at": {"type": "string"},
+        "environment": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "required": ["result_id", "name", "value"],
+      "properties": {
+        "result_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "value": {},
+        "evidence_ids": {"$ref": "#/$defs/evidenceIds"},
+        "expected_value": {},
+        "unit": {"type": "string"},
+        "status": {"$ref": "#/$defs/evidenceStatus"}
+      },
+      "additionalProperties": false
+    },
+    "deviation": {
+      "type": "object",
+      "required": ["deviation_id", "summary", "expected", "observed"],
+      "properties": {
+        "deviation_id": {"type": "string", "minLength": 1},
+        "summary": {"type": "string", "minLength": 1},
+        "expected": {"type": "string"},
+        "observed": {"type": "string"},
+        "evidence_ids": {"$ref": "#/$defs/evidenceIds"},
+        "status": {"enum": ["unexplained", "explained", "accepted", "needs_review"]},
+        "explanation": {"type": "string"},
+        "requires_review": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["review_id", "target_type", "target_id", "decision"],
+      "properties": {
+        "review_id": {"type": "string", "minLength": 1},
+        "target_type": {"type": "string", "minLength": 1},
+        "target_id": {"type": "string", "minLength": 1},
+        "decision": {"enum": ["accepted", "rejected", "revised", "pending"]},
+        "reviewer": {"type": "string"},
+        "note": {"type": "string"},
+        "reviewed_at": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  }
+}

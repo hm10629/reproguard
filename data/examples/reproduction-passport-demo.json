@@ -1,0 +1,114 @@
+{
+  "schema_version": "0.1.0",
+  "pack_id": "PACK-DEMO-001",
+  "title": "不完整机器学习项目复现档案（演示）",
+  "created_at": "2026-10-19T14:00:00Z",
+  "updated_at": "2026-10-19T14:00:00Z",
+  "license": "CC BY 4.0（仅指本演示档案结构与自造内容）",
+  "study": {
+    "study_id": "STUDY-DEMO-001",
+    "title": "不完整机器学习实验",
+    "source_citation": "项目自造固定样例，仅用于验证证据链结构，不代表真实论文评测",
+    "discipline": "机器学习",
+    "source_url": "",
+    "summary": "演示论文计划、代码配置和实际运行参数之间的证据关联与偏差复核。"
+  },
+  "evidence": [
+    {
+      "evidence_id": "EV-PAPER-BATCH",
+      "source_type": "paper",
+      "source_location": "paper.txt:7",
+      "content": "论文实验描述给出 batch size 为 64。",
+      "verification_level": "human_confirmed",
+      "status": "confirmed",
+      "source_uri": "data/examples/incomplete-ml-project/paper.txt",
+      "created_at": "2026-10-19T14:00:00Z",
+      "updated_at": "2026-10-19T14:00:00Z",
+      "metadata": {}
+    },
+    {
+      "evidence_id": "EV-CODE-BATCH",
+      "source_type": "code",
+      "source_location": "repository/train.py:23",
+      "content": "训练脚本中的默认 batch size 与论文描述不一致。",
+      "verification_level": "machine_verified",
+      "status": "deviation",
+      "source_uri": "data/examples/incomplete-ml-project/repository/train.py",
+      "created_at": "2026-10-19T14:00:00Z",
+      "updated_at": "2026-10-19T14:00:00Z",
+      "metadata": {}
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "CLAIM-BATCH",
+      "text": "实验使用 batch size 64。",
+      "evidence_ids": ["EV-PAPER-BATCH"],
+      "status": "confirmed"
+    }
+  ],
+  "protocol_steps": [
+    {
+      "step_id": "STEP-TRAIN",
+      "title": "执行模型训练",
+      "description": "使用论文声明的训练参数运行训练入口。",
+      "sequence": 1,
+      "expected_parameters": {"batch_size": 64},
+      "evidence_ids": ["EV-PAPER-BATCH"]
+    }
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "ART-TRAIN-SCRIPT",
+      "artifact_type": "code",
+      "name": "训练脚本",
+      "location": "data/examples/incomplete-ml-project/repository/train.py",
+      "version": "演示固定样例",
+      "license": "项目自造样例",
+      "evidence_ids": ["EV-CODE-BATCH"]
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "RUN-DEMO-001",
+      "title": "演示运行记录",
+      "status": "completed",
+      "steps": [
+        {
+          "step_id": "STEP-TRAIN",
+          "status": "completed",
+          "notes": "此记录只演示数据结构，未声明执行了真实论文复现。",
+          "actual_parameters": {"batch_size": 32},
+          "evidence_ids": ["EV-CODE-BATCH"]
+        }
+      ],
+      "started_at": "2026-10-19T14:00:00Z",
+      "ended_at": "2026-10-19T14:05:00Z",
+      "environment": {"mode": "demonstration"}
+    }
+  ],
+  "results": [],
+  "deviations": [
+    {
+      "deviation_id": "DEV-BATCH",
+      "summary": "论文与训练脚本的 batch size 不一致",
+      "expected": "64",
+      "observed": "32",
+      "evidence_ids": ["EV-PAPER-BATCH", "EV-CODE-BATCH"],
+      "status": "needs_review",
+      "explanation": "需要研究者确认该差异是否来自显存限制、脚本默认值或版本变化。",
+      "requires_review": true
+    }
+  ],
+  "reviews": [
+    {
+      "review_id": "REVIEW-DEV-BATCH",
+      "target_type": "deviation",
+      "target_id": "DEV-BATCH",
+      "decision": "pending",
+      "reviewer": "",
+      "note": "【必须人工复核】确认两处参数证据及差异原因。",
+      "reviewed_at": ""
+    }
+  ]
+}

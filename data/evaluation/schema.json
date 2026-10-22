@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "expected-findings.json",
+  "description": "单个人工标注项目的预期检查结果。字段沿用既有固定样例 data/examples/incomplete-ml-project/expected-findings.json，不新增编造字段。本 schema 与 src/evaluation.py 的校验规则保持一致。",
+  "type": "object",
+  "required": ["expectations"],
+  "properties": {
+    "sample_id": {
+      "type": "string",
+      "description": "项目标识，建议与目录名一致。"
+    },
+    "purpose": {
+      "type": "string",
+      "description": "该标注集的用途说明。"
+    },
+    "source": {
+      "type": "object",
+      "description": "材料来源，便于回溯标注对应的版本。",
+      "properties": {
+        "paper_url": { "type": "string" },
+        "paper_license": { "type": "string" },
+        "repository_url": { "type": "string" },
+        "repository_commit": { "type": "string" },
+        "repository_license": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "annotation": {
+      "type": "object",
+      "description": "标注过程记录。不填姓名亦可，但应说明标注依据。",
+      "properties": {
+        "annotated_by": { "type": "string" },
+        "annotated_at": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "expectations": {
+      "description": "逐条规则的预期状态。对象形式为规范形式；数组形式允许为每条附加 note。",
+      "oneOf": [
+        {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": { "pattern": "^R[0-9]{3}$" },
+          "additionalProperties": { "$ref": "#/$defs/status" }
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/entry" }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "status": {
+      "title": "检查状态",
+      "description": "与 docs/检查规则-v0.1.md 的判定口径一致。",
+      "enum": ["found", "partial", "missing", "not_applicable", "needs_review"]
+    },
+    "entry": {
+      "type": "object",
+      "required": ["rule_id", "expected"],
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "pattern": "^R[0-9]{3}$",
+          "description": "检查规则编号，当前为 R001-R015。"
+        },
+        "expected": { "$ref": "#/$defs/status" },
+        "note": {
+          "type": "string",
+          "description": "该条判定的依据或分歧说明。"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}
