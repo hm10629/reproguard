@@ -53,11 +53,27 @@ class GitHubActionTests(unittest.TestCase):
             self.assertTrue((workspace / "report.md").is_file())
             self.assertIn("finding-count=1", github_output.read_text(encoding="utf-8"))
 
-    def test_fetch_diff_uses_event_url_and_diff_media_type(self):
-        event = {"pull_request": {"diff_url": "https://example.test/pull/7.diff"}}
+    def test_fetch_diff_prefers_authenticated_api_url(self):
+        event = {
+            "pull_request": {
+                "url": "https://api.example.test/repos/team/project/pulls/7",
+                "diff_url": "https://example.test/team/project/pull/7.diff",
+            }
+        }
         with patch.object(github_action, "_request", return_value=b"diff --git a/a b/a") as request:
             result = github_action.fetch_diff(event, "token")
         self.assertEqual(result, "diff --git a/a b/a")
+        request.assert_called_once_with(
+            "https://api.example.test/repos/team/project/pulls/7",
+            token="token",
+            accept="application/vnd.github.v3.diff",
+        )
+
+    def test_fetch_diff_falls_back_to_diff_url_for_older_events(self):
+        event = {"pull_request": {"diff_url": "https://example.test/pull/7.diff"}}
+        with patch.object(github_action, "_request", return_value=b"diff") as request:
+            result = github_action.fetch_diff(event, "token")
+        self.assertEqual(result, "diff")
         request.assert_called_once_with(
             "https://example.test/pull/7.diff",
             token="token",

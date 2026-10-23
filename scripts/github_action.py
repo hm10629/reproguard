@@ -60,11 +60,13 @@ def _request(
 
 def fetch_diff(event: dict[str, Any], token: str) -> str:
     pull_request = _event_pull_request(event)
+    api_url = pull_request.get("url")
     diff_url = pull_request.get("diff_url")
-    if not isinstance(diff_url, str) or not diff_url.startswith(("https://", "http://")):
-        raise ValueError("The pull_request event does not contain a valid diff_url")
+    source_url = api_url if isinstance(api_url, str) and api_url else diff_url
+    if not isinstance(source_url, str) or not source_url.startswith(("https://", "http://")):
+        raise ValueError("The pull_request event does not contain a valid API or diff URL")
     payload = _request(
-        diff_url,
+        source_url,
         token=token,
         accept="application/vnd.github.v3.diff",
     )
