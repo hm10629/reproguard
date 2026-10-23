@@ -7,7 +7,7 @@ from pathlib import Path
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--epochs", type=int, default=20)
-    parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
     return parser.parse_args()
 
