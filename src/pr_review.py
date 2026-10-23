@@ -139,6 +139,11 @@ ASSIGNMENT_RE = re.compile(
     r"\s*(?::|=)\s*(.+?)\s*(?:[,;]\s*)?$"
 )
 CLI_ARGUMENT_RE = re.compile(r"--([A-Za-z][\w-]*)(?:\s+|=)([^\s`]+)")
+ARGPARSE_DEFAULT_RE = re.compile(
+    r"add_argument\(\s*[\"']--([A-Za-z][\w-]*)[\"'][^)]*?"
+    r"\bdefault\s*=\s*([^,)]+)",
+    re.IGNORECASE,
+)
 HUNK_RE = re.compile(r"^@@\s+-(\d+)(?:,(\d+))?\s+\+(\d+)(?:,(\d+))?\s+@@")
 LOADER_COUNT_ASSIGNMENT_RE = re.compile(
     r"^\s*([A-Za-z_]\w*)\s*=\s*len\(\s*([A-Za-z_]\w*)\s*\)",
@@ -303,6 +308,11 @@ def _clean_value(value: str) -> str:
 
 def parse_parameter(line: DiffLine) -> tuple[str, str] | None:
     match = ASSIGNMENT_RE.match(line.text)
+    if match:
+        parameter = _canonical_parameter(match.group(1))
+        if parameter:
+            return parameter, _clean_value(match.group(2))
+    match = ARGPARSE_DEFAULT_RE.search(line.text)
     if match:
         parameter = _canonical_parameter(match.group(1))
         if parameter:

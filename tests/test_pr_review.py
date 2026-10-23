@@ -126,6 +126,21 @@ class PullRequestReviewTests(unittest.TestCase):
         report = review_pull_request(diff)
         self.assertTrue(any(item.category == "parameter_change" for item in report.findings))
 
+    def test_argparse_default_change_is_detected(self):
+        diff = """diff --git a/train.py b/train.py
+--- a/train.py
++++ b/train.py
+@@ -10 +10 @@ def parse_args():
+-    parser.add_argument("--batch-size", type=int, default=64)
++    parser.add_argument("--batch-size", type=int, default=32)
+"""
+        report = review_pull_request(diff)
+        finding = next(item for item in report.findings if item.category == "parameter_change")
+        self.assertEqual(finding.file, "train.py")
+        self.assertEqual(finding.line, 10)
+        self.assertIn("`64`", finding.message)
+        self.assertIn("`32`", finding.message)
+
     def test_seed_removal_is_high_risk(self):
         report = review_pull_request(SEED_REMOVAL_DIFF)
         finding = next(item for item in report.findings if item.category == "seed_removed")
