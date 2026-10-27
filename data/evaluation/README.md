@@ -6,7 +6,7 @@
 
 U-Net 真实公开项目已完成 6 条核心规则人工标注，并生成正式评测结果。
 
-U-Net 目录中来自旧 Claude 工作区的迁移文件仍只作为复核线索；正式指标使用人工重新核验后生成的 `unet-pytorch/expected-findings.json`。
+U-Net 目录中来自外部工作区的迁移文件仍只作为复核线索；正式指标使用人工重新核验后生成的 `unet-pytorch/expected-findings.json`。
 
 当前有 1 个已进入核心规则评测的项目和 2 个未标注候选项目：
 

@@ -23,12 +23,12 @@
 - 是否确认仓库 commit 一致：是
 - 是否确认没有把最小运行写成论文精度复现：是
 
-## 已迁入的 Claude 标注线索
+## 已迁入的外部基线标注线索
 
-Claude 工作区的二分类标注已经迁入 `imported/`，但存在 commit、文件路径和两条结论冲突，不能直接当作本项目标准答案。逐条映射见：
+外部工作区的二分类标注已经迁入 `imported/`，但存在 commit、文件路径和两条结论冲突，不能直接当作本项目标准答案。逐条映射见：
 
-- `imported/claude-ground-truth.original.json`
-- `imported/claude-to-reproguard-mapping.json`
+- `imported/external-ground-truth.original.json`
+- `imported/external-to-reproguard-mapping.json`
 
 可优先复核以下建议，减少重复阅读：
 
@@ -36,7 +36,7 @@ Claude 工作区的二分类标注已经迁入 `imported/`，但存在 commit、
 | --- | --- | --- |
 | R001 | `partial` | README 是否已足以说明用途和基本使用方式 |
 | R002 | `missing` | 固定 commit 是否确无依赖文件 |
-| R003 | `needs_review` | Claude 原标注与当前 README 冲突，需查论文原文 |
+| R003 | `needs_review` | 外部基线原标注与当前 README 冲突，需查论文原文 |
 | R008 | `missing` | 固定 commit 是否确无训练/评测入口命令 |
 | R011 | `needs_review` | 第三方 PyTorch 修改版与原始 Caffe 论文的对应边界 |
 | R014 | `partial` | MIT LICENSE 已有，但外部数据使用限制尚未确认 |
