@@ -5,7 +5,7 @@
 | 项目 | 实际值 |
 | --- | --- |
 | 验收日期 | 2026-10-23 |
-| 仓库 | `https://github.com/hm10629/reproguard`（私有） |
+| 仓库 | `https://github.com/hm10629/reproguard`（现为公开；本记录中的首次验收发生在公开前） |
 | 测试 PR | `https://github.com/hm10629/reproguard/pull/1` |
 | 成功运行 | `https://github.com/hm10629/reproguard/actions/runs/39933280765` |
 | 测试变更 | `train.py` 中 `batch_size` 默认值由 `64` 改为 `32` |
@@ -21,7 +21,7 @@
 
 ## 线上发现与修复
 
-1. 首次运行失败：私有仓库的网页 `diff_url` 对 `GITHUB_TOKEN` 返回 404。修复为优先调用 PR API URL，并以 diff 媒体类型请求；保留旧事件的 `diff_url` 回退。
+1. 首次运行失败：当时私有仓库的网页 `diff_url` 对 `GITHUB_TOKEN` 返回 404。修复为优先调用 PR API URL，并以 diff 媒体类型请求；保留旧事件的 `diff_url` 回退。
 2. 第二次运行成功但报告 0 项风险：解析器未覆盖 `argparse.add_argument(..., default=...)`。补充 argparse 默认值解析及回归测试。
 3. 第三次运行成功：warning、Summary、单条评论更新和 artifact 四项均通过。
 
@@ -29,4 +29,4 @@
 
 ## 结论边界
 
-本次是在私有源仓库中使用 `uses: ./` 完成的同仓库在线验收，证明复合 Action 的核心在线流程可运行。由于仓库尚未公开、`v1` 标签尚未发布，本记录不等同于“第三方公开仓库通过 `hm10629/reproguard@v1` 跨仓库调用成功”。该项应在决定公开范围后另行验证。
+本次是在公开前的源仓库中使用 `uses: ./` 完成的同仓库在线验收，证明复合 Action 的核心在线流程可运行。仓库随后已公开并发布 `v1`，公开测试仓库已完成 `hm10629/reproguard@v1` 跨仓库调用验证，链接见发布检查清单。

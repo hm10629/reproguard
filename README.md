@@ -113,11 +113,11 @@ AI 建档只能引用系统提供的 `P###` 来源编号。所有 AI 生成的�
 - 使用标准库 `unittest` 测试，默认规则模式不依赖大模型或网络
 - 提供评测骨架 `src/evaluation.py`，可按 `rule_id` 对照工具判定与人工标注
 
-当前工程主线已经切换为 PR 复现风险审查。U-Net论文与固定版本仓库继续作为复现基线案例；可复用的复合Action和入口workflow已建立，[Pytorch-UNet PR #141](data/cases/pytorch-unet-pr-141/source.md)已形成真实历史PR回放，并完成签署人工复核及漏报修复。U-Net 6条核心规则的真实人工标注、混淆矩阵、前后对照和带官方来源的竞品表也已完成。2026-10-22已完成一次`deepseek-chat`真实调用、逐项内容复核和沈智和签名确认；2026-10-23已在私有仓库PR #1完成在线Action验收，warning、Job Summary、单条评论更新和报告artifact均通过。非代码协议可通过同一diff接口检查温度、浓度、时长等字段，但系统只审查提交的数字材料，不证明线下实验真实发生。
+当前工程主线已经切换为 PR 复现风险审查。U-Net论文与固定版本仓库继续作为复现基线案例；可复用的复合Action和入口workflow已建立，[Pytorch-UNet PR #141](data/cases/pytorch-unet-pr-141/source.md)已形成真实历史PR回放，并完成签署人工复核及漏报修复。U-Net 6条核心规则的真实人工标注、混淆矩阵、前后对照和带官方来源的竞品表也已完成。2026-10-22已完成一次`deepseek-chat`真实调用、逐项内容复核和沈智和签名确认；PR #1已完成在线Action验收，warning、Job Summary、单条评论更新和报告artifact均通过。非代码协议可通过同一diff接口检查温度、浓度、时长等字段，但系统只审查提交的数字材料，不证明线下实验真实发生。
 
 ## 快速开始
 
-在其他GitHub仓库中启用PR自动审查，见[GitHub Actions快速开始](docs/GitHub_Actions快速开始.md)。当前仓库已公开，并完成过同仓库在线验收，记录见[在线Action验收记录](docs/在线Action验收记录.md)。`v1`标签已发布；跨仓库引用仍待在独立公开测试仓库中验证。
+在其他GitHub仓库中启用PR自动审查，见[GitHub Actions快速开始](docs/GitHub_Actions快速开始.md)。当前仓库已公开，并完成同仓库与公开测试仓库的在线验收，记录见[在线Action验收记录](docs/在线Action验收记录.md)。`v1`标签已发布，其他仓库可通过 `hm10629/reproguard@v1` 接入。
 
 启动网页：
 

@@ -67,9 +67,9 @@
 
 ## 第9页：开放成果
 
-- MIT许可代码仓库（当前私有提交，计划公开）；
-- 已完成私有源仓库PR #1同仓库Action验收；
-- `hm10629/reproguard@v1`复合Action（公开并发布标签后可用）；
+- MIT许可公开代码仓库（已发布）；
+- 已完成源仓库PR #1同仓库Action验收；
+- `hm10629/reproguard@v1`复合Action（已完成公开发布和跨仓库验证）；
 - Schema、评测脚本、测试、文档和真实案例。
 
 Action运行链接：`https://github.com/hm10629/reproguard/actions/runs/39933280765`。`【必须人工补充】`仓库二维码、最终公开状态；若完成`v1`跨仓库验收，再补充公开测试PR，不得提前声称已经完成。
