@@ -49,6 +49,27 @@ class WebState:
 
 STATE = WebState()
 
+# The demo inputs are intentionally shown as project-relative paths.  This keeps
+# screen recordings portable and avoids exposing a developer's local drive path.
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DEMO_PAPER = "data\\examples\\incomplete-ml-project\\paper.txt"
+DEMO_REPOSITORY = "data\\examples\\incomplete-ml-project\\repository"
+
+
+def _input_path(value: str) -> Path:
+    """Resolve a form path relative to the project when it is not absolute."""
+    path = Path(value)
+    return path if path.is_absolute() else PROJECT_ROOT / path
+
+
+def _display_path(value: str) -> str:
+    """Return a portable path for the UI while retaining external paths."""
+    path = Path(value)
+    try:
+        return str(path.resolve().relative_to(PROJECT_ROOT)).replace("/", "\\")
+    except (OSError, ValueError):
+        return value
+
 
 def _page(title: str, body: str) -> bytes:
     document = f"""<!doctype html>
@@ -113,6 +134,8 @@ def _home(
     api_base_url: str = "",
     api_key_env: str = "",
 ) -> bytes:
+    paper = paper or DEMO_PAPER
+    repo = repo or DEMO_REPOSITORY
     error_html = f'<div class="error">{html.escape(error)}</div>' if error else ""
     rules_selected = " selected" if model_mode == "rules" else ""
     ollama_selected = " selected" if model_mode == "ollama" else ""
@@ -158,6 +181,8 @@ def _workspace_home(
     api_base_url: str = "",
     api_key_env: str = "",
 ) -> bytes:
+    paper = paper or DEMO_PAPER
+    repo = repo or DEMO_REPOSITORY
     error_html = f'<div class="error">{html.escape(error)}</div>' if error else ""
     manual_selected = " selected" if model_mode == "manual" else ""
     rules_selected = " selected" if model_mode in {"manual", "rules"} else ""
@@ -541,7 +566,7 @@ def _result_page(report) -> bytes:
     body = f"""
 <header>
 <h1>体检报告：{html.escape(report.project_name)}</h1>
-<p>论文：<code>{html.escape(report.paper_path)}</code><br>仓库：<code>{html.escape(report.repository_path)}</code></p>
+<p>论文：<code>{html.escape(_display_path(report.paper_path))}</code><br>仓库：<code>{html.escape(_display_path(report.repository_path))}</code></p>
 </header>
 <div class="links"><a href="/download/json">下载 JSON</a><a href="/download/markdown">下载 Markdown</a><a href="/">重新检查</a></div>
 <section class="stats">{stats_html}</section>
@@ -801,7 +826,7 @@ class AnalysisHandler(BaseHTTPRequestHandler):
         if self.path == "/create-passport":
             try:
                 passport, extraction = create_passport_from_paper(
-                    Path(paper), model_config=model_config
+                    _input_path(paper), model_config=model_config
                 )
             except Exception as exc:
                 with STATE.lock:
@@ -828,7 +853,7 @@ class AnalysisHandler(BaseHTTPRequestHandler):
 
         repo = form.get("repo", [""])[0].strip()
         try:
-            report = analyze(Path(paper), Path(repo), model_config=model_config)
+            report = analyze(_input_path(paper), _input_path(repo), model_config=model_config)
         except Exception as exc:
             with STATE.lock:
                 STATE.error = str(exc)
