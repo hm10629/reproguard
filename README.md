@@ -114,7 +114,7 @@ AI 建档只能引用系统提供的 `P###` 来源编号。所有 AI 生成的�
 
 ## 快速开始
 
-在其他GitHub仓库中启用PR自动审查，见[GitHub Actions快速开始](docs/GitHub_Actions快速开始.md)。当前私有仓库已完成同仓库在线验收，记录见[在线Action验收记录](docs/在线Action验收记录.md)。计划公开引用为 `hm10629/reproguard@v1`；仓库公开并发布标签前，该跨仓库引用尚不可用。
+在其他GitHub仓库中启用PR自动审查，见[GitHub Actions快速开始](docs/GitHub_Actions快速开始.md)。当前仓库已公开，并完成过同仓库在线验收，记录见[在线Action验收记录](docs/在线Action验收记录.md)。计划公开引用为 `hm10629/reproguard@v1`；`v1`标签和跨仓库引用仍待发布与验证。
 
 启动网页：
 
