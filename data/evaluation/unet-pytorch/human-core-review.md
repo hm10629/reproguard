@@ -28,11 +28,11 @@
 Claude 工作区的二分类标注已经迁入 `imported/`，但存在 commit、文件路径和两条结论冲突，不能直接当作本项目标准答案。逐条映射见：
 
 - `imported/claude-ground-truth.original.json`
-- `imported/claude-to-codex-mapping.json`
+- `imported/claude-to-reproguard-mapping.json`
 
 可优先复核以下建议，减少重复阅读：
 
-| Codex 规则 | 迁入建议 | 仍需人工确认 |
+| ReproGuard 规则 | 迁入建议 | 仍需人工确认 |
 | --- | --- | --- |
 | R001 | `partial` | README 是否已足以说明用途和基本使用方式 |
 | R002 | `missing` | 固定 commit 是否确无依赖文件 |
